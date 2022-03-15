@@ -15,3 +15,5 @@ node_modules/
 
 # Babel output
 server/build
+
+package-lock.json
