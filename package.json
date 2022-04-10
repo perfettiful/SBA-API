@@ -1,11 +1,25 @@
 {
-  "name": "nodejs-server-app",
-  "version": "0.1.0",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
+  "name": "SB-REST-API",
+  "version": "1.0.0",
+  "description": "Small Business Administration datasets Express REST API",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "MongoDB"
+  ],
+  "author": "Nathan Perfetti",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }
