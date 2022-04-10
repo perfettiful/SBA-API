@@ -1,99 +1,270 @@
-# Node.js Server App Template
+# 18 NoSQL: Social Network API
 
-A template with full RESTful user account management for user-account based web apps
+## Your Task
 
-- Database / Data store: MongoDB,
-- Server app: Node.js, Express.js
-- Views: EJS
+MongoDB is a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data. Over the last part of this course, you’ll use several of the technologies that social networking platforms use in their full-stack applications. Because the foundation of these applications is data, it’s important that you understand how to build and structure the API first.
 
-## Features of this template
+Your homework is to build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. You’ll use Express.js for routing, a MongoDB database, and the Mongoose ODM. In addition to using the [Express.js](https://www.npmjs.com/package/express) and [Mongoose](https://www.npmjs.com/package/mongoose) packages, you may also optionally use a JavaScript date library of your choice or the native JavaScript `Date` object to format timestamps.
 
-### Resource-based hierarchy
+No seed data is provided, so you’ll need to create your own data using Insomnia after you’ve created your API.
 
-Breaking the server directory structure into resources of business logic each with its inner MVC framework (i.e. product-centric) instead of the usual MVC monolithic framework: https://github.com/i0natan/nodebestpractices/blob/master/sections/projectstructre/breakintresources.md
+Because this application won’t be deployed, you’ll also need to create a walkthrough video that demonstrates its functionality and all of the following acceptance criteria being met. You’ll need to submit a link to the video and add it to the README of your project.
 
-### Local login strategy
+## User Story
 
-Each user account store [both password salt and hash](https://www.getdonedone.com/building-the-optimal-user-database-model-for-your-application/) in a version-specific strategy to allow for future implementations of more secure password encryption/one-way-encoding strategies while allowing for backward compatibility of accomodating existing users with  encrypted/one-way-encoded passwords stored with older strategies.
+```md
+AS A social media startup
+I WANT an API for my social network that uses a NoSQL database
+SO THAT my website can handle large amounts of unstructured data
+```
 
-### Style guide
+## Acceptance Criteria
 
-Uses AirBNB enforced by `eslint`.
+```md
+GIVEN a social network API
+WHEN I enter the command to invoke the application
+THEN my server is started and the Mongoose models are synced to the MongoDB database
+WHEN I open API GET routes in Insomnia for users and thoughts
+THEN the data for each of these routes is displayed in a formatted JSON
+WHEN I test API POST, PUT, and DELETE routes in Insomnia
+THEN I am able to successfully create, update, and delete users and thoughts in my database
+WHEN I test API POST and DELETE routes in Insomnia
+THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+```
 
-### Standardised request-response structure
+## Mock Up
 
-All requests and responses mostly follow the guidelines of [JSON API](http://jsonapi.org/format/) to allow for [consistent data models](https://nordicapis.com/the-benefits-of-using-json-api/) while having the benefit of a standardised interface via HTTP between client and server applications, either internal or external.
+The following animations show examples of the application's API routes being tested in Insomnia.
 
-### Server-side static view rendering using EJS
+The following animation shows GET routes to return all users and all thoughts being tested in Insomnia:
 
-Each resource has its own set of `/views/{resource}` and SHOULD be located within a folder with the name `{resource}` within its own `views/` folder. All of the `views/` folders for each initalised component will share the hierarchy, and this is to prevent conflicting file pointers during `res.render`, e.g. `server/resources/users/views/index.ejs refer to the same file as client/views/index.ejs`.
+![Demo of GET routes to return all users and all thoughts being tested in Insomnia.](./Assets/18-nosql-homework-demo-01.gif)
 
-## Server app
+The following animation shows GET routes to return a single user and a single thought being tested in Insomnia:
 
-Dependencies:
+![Demo that shows GET routes to return a single user and a single thought being tested in Insomnia.](./Assets/18-nosql-homework-demo-02.gif)
 
-  - [`express`](https://www.npmjs.com/package/express)
-  - [`bodyparser`](https://www.npmjs.com/package/body-parser)
-  - [`dotenv`](https://www.npmjs.com/package/dotenv) - manage sensitive or contextual environment variables
-  - [`mongoose`](https://www.npmjs.com/package/mongoose) - NoSQL modelling (http://mongoosejs.com/)
-  - [`passport`](http://www.passportjs.org) - user local and social media authentication strategies.
-    - `passport-local` (Local).
-  - [`uuid`](https://www.npmjs.com/package/uuid) - used to generated UUIDs for unique user identifiers
-  - [`bcrypt`](https://www.npmjs.com/package/bcrypt) - string hashing library
-  - [`morgan`](https://www.npmjs.com/package/morgan) - needed for passport local strategy
-  - [`cookie-parser`](https://www.npmjs.com/package/cookie-parser) - needed for passport local strategy
-  - [`express-session`](https://www.npmjs.com/package/express-session) - needed for passport local strategy
-  - [`connect-flash`](https://www.npmjs.com/package/connect-flash) - Flash messages which are stored in sessions
+The following animation shows the POST, PUT, and DELETE routes for users being tested in Insomnia:
 
-Developer dependencies:
+![Demo that shows the POST, PUT, and DELETE routes for users being tested in Insomnia.](./Assets/18-nosql-homework-demo-03.gif)
 
-- [`@babel/core`](https://www.npmjs.com/package/@babel/core) - Foundation for Babel
-- [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) - Lets Babel to be used on the command line
-- [`@babel/node`](https://www.npmjs.com/package/@babel/node) - Lets nodemon compiling with Babel presets and plugins
-- [`@babel/preset-env`](https://www.npmjs.com/package/@babel/node) - Let Babel automatically manage syntax transforms
-- [`@babel/plugin-transform-runtime`](https://babeljs.io/docs/en/6.26.3/babel-plugin-transform-runtime) - Used by Babel to [overcome regeneratorRuntime is not defined issues](https://github.com/babel/babel/issues/5085).
-- [`@babel/runtime`](https://babeljs.io/docs/en/babel-runtime) - Same as `babel-plugin-transform-runtime`, but for production.
-- [`eslint`](https://eslint.org) - Makes code consistent
-- [`eslint-config-airbnb-base`](https://www.npmjs.com/package/eslint-config-airbnb-base) - Installed automatically when initialising eslint for AirBNB styleguide
-- [`eslint-plugin-import`](https://www.npmjs.com/package/eslint-plugin-import) - Installed automatically when initialising eslint for JavaScript modules
-- [`node-source-map-support`](https://github.com/evanw/node-source-map-support) - For error tracing to the `src/` folder during development and debugging in conjunction with enabling Babel's native source mapping being implemented in npm scripts
+In addition to this, your walkthrough video should show the POST, PUT, and DELETE routes for thoughts being tested in Insomnia.
 
-## Client app (web)
+The following animation shows the POST and DELETE routes for a user’s friend list being tested in Insomnia:
 
-## Local development
+![Demo that shows the POST and DELETE routes for a user’s friend list being tested in Insomnia.](./Assets/18-nosql-homework-demo-04.gif)
 
-1. On project root level, install packages: `npm install`. npm manages both server and client resource dependencies.
-2. Run `npm start` or `nodemon` if you have installed it via npm globally on your machine.
+In addition to this, your walkthrough video should show the POST and DELETE routes for reactions to thoughts being tested in Insomnia.
 
-## Deployment
+## Getting Started
 
-### Set up RDBs
+Be sure to have MongoDB installed on your machine. Follow the [MongoDB installation guide on The Full-Stack Blog](https://coding-boot-camp.github.io/full-stack/mongodb/how-to-install-mongodb) to install MongoDB locally.
 
-### Set up MongoDBs
+Use the following guidelines to set up your models and API routes:
 
-To set up a remote MongoDB, these are some options:
+### Models
 
-- [MongoDB Atlas cluster](https://cloud.mongodb.com/v2/)
-- [mlab](https://www.mlab.com/)
-- [Amazon Web Services VPCs](https://docs.aws.amazon.com/quickstart/latest/mongodb/welcome.html)
+**User**:
 
-Create the following tables:
+* `username`
+  * String
+  * Unique
+  * Required
+  * Trimmed
 
-- `users`
+* `email`
+  * String
+  * Required
+  * Unique
+  * Must match a valid email address (look into Mongoose's matching validation)
 
-#### References
+* `thoughts`
+  * Array of `_id` values referencing the `Thought` model
 
-- [Declare multiple views locations in Express](https://stackoverflow.com/questions/11315351/multiple-view-paths-on-node-js-express)
-- [Babel Node Guide](https://github.com/babel/example-node-server)
-- [OWASP](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Guidance)
-- [It's okay to store a salt next to a hash](https://security.stackexchange.com/questions/100898/why-store-a-salt-along-side-the-hashed-password)
+* `friends`
+  * Array of `_id` values referencing the `User` model (self-reference)
 
-# Other notes
+**Schema Settings**:
 
-- Deciding on a full stack framework: https://webinerds.com/6-web-development-stacks-try-2017/ 
-- Best practices informational resource: https://github.com/i0natan/nodebestpractices#1-project-structure-practices
-- Folder naming conventions on best or common practices: https://gist.github.com/woodysee/f4e5dff6ede764da422f3599221c723f
-- https://www.sitepoint.com/node-js-mvc-application/
-- https://twitter.com/nodepractices/
-- [Passport JS Local Strategy template](https://github.com/passport/express-4.x-local-example/blob/master/server.js)
-- [How to connect Robo 3T to a MongoDB Atlas cluster](https://www.datduh.com/blog/2017/7/26/how-to-connect-to-mongodb-atlas-using-robo-3t-robomongo)
+Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.
+
+---
+
+**Thought**:
+
+* `thoughtText`
+  * String
+  * Required
+  * Must be between 1 and 280 characters
+
+* `createdAt`
+  * Date
+  * Set default value to the current timestamp
+  * Use a getter method to format the timestamp on query
+
+* `username` (The user that created this thought)
+  * String
+  * Required
+
+* `reactions` (These are like replies)
+  * Array of nested documents created with the `reactionSchema`
+
+**Schema Settings**:
+
+Create a virtual called `reactionCount` that retrieves the length of the thought's `reactions` array field on query.
+
+---
+
+**Reaction** (SCHEMA ONLY)
+
+* `reactionId`
+  * Use Mongoose's ObjectId data type
+  * Default value is set to a new ObjectId
+
+* `reactionBody`
+  * String
+  * Required
+  * 280 character maximum
+
+* `username`
+  * String
+  * Required
+
+* `createdAt`
+  * Date
+  * Set default value to the current timestamp
+  * Use a getter method to format the timestamp on query
+
+**Schema Settings**:
+
+This will not be a model, but rather will be used as the `reaction` field's subdocument schema in the `Thought` model.
+
+### API Routes
+
+**`/api/users`**
+
+* `GET` all users
+
+* `GET` a single user by its `_id` and populated thought and friend data
+
+* `POST` a new user:
+
+```json
+// example data
+{
+  "username": "lernantino",
+  "email": "lernantino@gmail.com"
+}
+```
+
+* `PUT` to update a user by its `_id`
+
+* `DELETE` to remove user by its `_id`
+
+**BONUS**: Remove a user's associated thoughts when deleted.
+
+---
+
+**`/api/users/:userId/friends/:friendId`**
+
+* `POST` to add a new friend to a user's friend list
+
+* `DELETE` to remove a friend from a user's friend list
+
+---
+
+**`/api/thoughts`**
+
+* `GET` to get all thoughts
+
+* `GET` to get a single thought by its `_id`
+
+* `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
+
+```json
+// example data
+{
+  "thoughtText": "Here's a cool thought...",
+  "username": "lernantino",
+  "userId": "5edff358a0fcb779aa7b118b"
+}
+```
+
+* `PUT` to update a thought by its `_id`
+
+* `DELETE` to remove a thought by its `_id`
+
+---
+
+**`/api/thoughts/:thoughtId/reactions`**
+
+* `POST` to create a reaction stored in a single thought's `reactions` array field
+
+* `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
+
+## Grading Requirements
+
+This homework is graded based on the following criteria:
+
+### Deliverables: 10%
+
+* Your GitHub repository containing your application code.
+
+### Walkthrough Video: 37%
+
+* A walkthrough video that demonstrates the functionality of the social media API must be submitted, and a link to the video should be included in your README file.
+
+  * The walkthrough video must show all of the technical acceptance criteria being met.
+
+  * The walkthrough video must demonstrate how to start the application’s server.
+
+  * The walkthrough video must demonstrate GET routes for all users and all thoughts being tested in Insomnia.
+
+  * The walkthrough video must demonstrate GET routes for a single user and a single thought being tested in Insomnia.
+
+  * The walkthrough video must demonstrate POST, PUT, and DELETE routes for users and thoughts being tested in Insomnia.
+
+  * Walkthrough video must demonstrate POST and DELETE routes for a user’s friend list being tested in Insomnia.
+
+  * Walkthrough video must demonstrate POST and DELETE routes for reactions to thoughts being tested in Insomnia.
+
+### Technical Acceptance Criteria: 40%
+
+* Satisfies all of the preceding acceptance criteria plus the following:
+
+  * Uses the [Mongoose package](https://www.npmjs.com/package/mongoose) to connect to a MongoDB database.
+
+  * Includes User and Thought models outlined in the homework instructions.
+
+  * Includes schema settings for User and Thought models as outlined in the homework instructions.
+
+  * Includes Reactions as the `reaction` field's subdocument schema in the Thought model.
+
+  * Uses functionality to format queried timestamps properly.
+
+### Repository Quality: 13%
+
+* Repository has a unique name.
+
+* Repository follows best practices for file structure and naming conventions.
+
+* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+
+* Repository contains multiple descriptive commit messages.
+
+* Repository contains a high-quality README with description and a link to a walkthrough video.
+
+### Bonus: +10 Points
+
+* Application deletes a user's associated thoughts when the user is deleted.
+
+## Review
+
+You are required to submit BOTH of the following for review:
+
+* A walkthrough video demonstrating the functionality of the application and all of the acceptance criteria being met.
+
+* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
+
+---
+© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
