@@ -1,6 +1,6 @@
 # All purpose Small Business Administration Dataset API
 
-## Dataset Available:
+## Datasets Available:
 
 - [Shuttered Venue Operators Grantees](https://data.sba.gov/dataset/svog)
 

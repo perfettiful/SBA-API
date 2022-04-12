@@ -1,5 +1,6 @@
 const db = require('./config/connection');
 const RRFModel = require('./models/RRF-Model')
+const fs = require('fs')
 
 db.set('debug', true);
 
@@ -33,13 +34,38 @@ db.once('open', async () => {
 
     // await newRecord.save();
 
-    
-    const results = await RRFModel
-    .find(
-      // {}
-      ).limit(2).exec();
+
+    // const results = await RRFModel
+    // .find(
+    //   // {}
+    //   ).limit(2).exec();
+
+    const results = await RRFModel.aggregate([
+      { '$match':   {'FranchiseName': { $exists:true }}},
+      {
+        '$group': {
+          '_id': '$FranchiseName',
+          'count': {
+            '$sum': 1
+          }
+        }
+      }, {
+        '$sort': {
+          'count': -1
+        }
+      }, {
+        '$limit': 50
+      }
+    ]);
 
     console.log(results);
+
+    fs.writeFile('./output/franchiseCounts.json', JSON.stringify(results), function(data){
+
+      data ? process.exit(0) : null
+    })
+
+    
 
   } catch (err) {
     throw err;
